@@ -8,12 +8,30 @@ bl_info = {
     'category': 'Object',
 }
 
+import bpy
+
+from .properties import CentreBody
+from .panels import CentreBody_PT_Panel
+
+from bpy.props import PointerProperty
+
 
 def register():
+    bpy.utils.register_class(CentreBody)
+    bpy.utils.register_class(CentreBody_PT_Panel)
+
+    bpy.types.Scene.CentreBody = PointerProperty(type=CentreBody)
     print("Orbital Mechanics Add On Enabled")
-    pass
+
 
 
 def unregister():
+    bpy.utils.unregister_class(CentreBody)
+    bpy.utils.unregister_class(CentreBody_PT_Panel)
+
+    del bpy.types.Scene.CentreBody
     print("Orbital Mechanics Add On Disabled")
-    pass
+
+
+if __name__ == "__main__":
+    register()
